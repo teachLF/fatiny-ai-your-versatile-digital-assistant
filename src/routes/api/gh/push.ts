@@ -49,8 +49,9 @@ export const Route = createFileRoute("/api/gh/push")({
             branch = info.default_branch || "main";
           }
 
+          const targetBranch: string = branch;
           const ref = await ghJson<any>(
-            `repos/${owner}/${repo}/git/ref/heads/${encodeURIComponent(branch)}`,
+            `repos/${owner}/${repo}/git/ref/heads/${encodeURIComponent(targetBranch)}`,
           );
           const baseCommitSha = ref.object.sha;
           const baseCommit = await ghJson<any>(
@@ -86,7 +87,7 @@ export const Route = createFileRoute("/api/gh/push")({
           });
 
           await ghJson<any>(
-            `repos/${owner}/${repo}/git/refs/heads/${encodeURIComponent(branch)}`,
+            `repos/${owner}/${repo}/git/refs/heads/${encodeURIComponent(targetBranch)}`,
             { method: "PATCH", body: JSON.stringify({ sha: commit.sha, force: false }) },
           );
 
@@ -94,7 +95,7 @@ export const Route = createFileRoute("/api/gh/push")({
             ok: true,
             owner,
             repo,
-            branch,
+            branch: targetBranch,
             commit: commit.sha,
             url: `https://github.com/${owner}/${repo}/commit/${commit.sha}`,
             repoUrl: `https://github.com/${owner}/${repo}`,
