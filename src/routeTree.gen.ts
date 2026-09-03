@@ -12,6 +12,11 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApiGenerateImageRouteImport } from './routes/api/generate-image'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
+import { Route as ApiBuildRouteImport } from './routes/api/build'
+import { Route as ApiGhTreeRouteImport } from './routes/api/gh/tree'
+import { Route as ApiGhReposRouteImport } from './routes/api/gh/repos'
+import { Route as ApiGhPushRouteImport } from './routes/api/gh/push'
+import { Route as ApiGhFileRouteImport } from './routes/api/gh/file'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -28,35 +33,105 @@ const ApiChatRoute = ApiChatRouteImport.update({
   path: '/api/chat',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiBuildRoute = ApiBuildRouteImport.update({
+  id: '/api/build',
+  path: '/api/build',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiGhTreeRoute = ApiGhTreeRouteImport.update({
+  id: '/api/gh/tree',
+  path: '/api/gh/tree',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiGhReposRoute = ApiGhReposRouteImport.update({
+  id: '/api/gh/repos',
+  path: '/api/gh/repos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiGhPushRoute = ApiGhPushRouteImport.update({
+  id: '/api/gh/push',
+  path: '/api/gh/push',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiGhFileRoute = ApiGhFileRouteImport.update({
+  id: '/api/gh/file',
+  path: '/api/gh/file',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/api/build': typeof ApiBuildRoute
   '/api/chat': typeof ApiChatRoute
   '/api/generate-image': typeof ApiGenerateImageRoute
+  '/api/gh/file': typeof ApiGhFileRoute
+  '/api/gh/push': typeof ApiGhPushRoute
+  '/api/gh/repos': typeof ApiGhReposRoute
+  '/api/gh/tree': typeof ApiGhTreeRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/api/build': typeof ApiBuildRoute
   '/api/chat': typeof ApiChatRoute
   '/api/generate-image': typeof ApiGenerateImageRoute
+  '/api/gh/file': typeof ApiGhFileRoute
+  '/api/gh/push': typeof ApiGhPushRoute
+  '/api/gh/repos': typeof ApiGhReposRoute
+  '/api/gh/tree': typeof ApiGhTreeRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/api/build': typeof ApiBuildRoute
   '/api/chat': typeof ApiChatRoute
   '/api/generate-image': typeof ApiGenerateImageRoute
+  '/api/gh/file': typeof ApiGhFileRoute
+  '/api/gh/push': typeof ApiGhPushRoute
+  '/api/gh/repos': typeof ApiGhReposRoute
+  '/api/gh/tree': typeof ApiGhTreeRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/api/chat' | '/api/generate-image'
+  fullPaths:
+    | '/'
+    | '/api/build'
+    | '/api/chat'
+    | '/api/generate-image'
+    | '/api/gh/file'
+    | '/api/gh/push'
+    | '/api/gh/repos'
+    | '/api/gh/tree'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/api/chat' | '/api/generate-image'
-  id: '__root__' | '/' | '/api/chat' | '/api/generate-image'
+  to:
+    | '/'
+    | '/api/build'
+    | '/api/chat'
+    | '/api/generate-image'
+    | '/api/gh/file'
+    | '/api/gh/push'
+    | '/api/gh/repos'
+    | '/api/gh/tree'
+  id:
+    | '__root__'
+    | '/'
+    | '/api/build'
+    | '/api/chat'
+    | '/api/generate-image'
+    | '/api/gh/file'
+    | '/api/gh/push'
+    | '/api/gh/repos'
+    | '/api/gh/tree'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ApiBuildRoute: typeof ApiBuildRoute
   ApiChatRoute: typeof ApiChatRoute
   ApiGenerateImageRoute: typeof ApiGenerateImageRoute
+  ApiGhFileRoute: typeof ApiGhFileRoute
+  ApiGhPushRoute: typeof ApiGhPushRoute
+  ApiGhReposRoute: typeof ApiGhReposRoute
+  ApiGhTreeRoute: typeof ApiGhTreeRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -82,13 +157,53 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiChatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/build': {
+      id: '/api/build'
+      path: '/api/build'
+      fullPath: '/api/build'
+      preLoaderRoute: typeof ApiBuildRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/gh/tree': {
+      id: '/api/gh/tree'
+      path: '/api/gh/tree'
+      fullPath: '/api/gh/tree'
+      preLoaderRoute: typeof ApiGhTreeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/gh/repos': {
+      id: '/api/gh/repos'
+      path: '/api/gh/repos'
+      fullPath: '/api/gh/repos'
+      preLoaderRoute: typeof ApiGhReposRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/gh/push': {
+      id: '/api/gh/push'
+      path: '/api/gh/push'
+      fullPath: '/api/gh/push'
+      preLoaderRoute: typeof ApiGhPushRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/gh/file': {
+      id: '/api/gh/file'
+      path: '/api/gh/file'
+      fullPath: '/api/gh/file'
+      preLoaderRoute: typeof ApiGhFileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ApiBuildRoute: ApiBuildRoute,
   ApiChatRoute: ApiChatRoute,
   ApiGenerateImageRoute: ApiGenerateImageRoute,
+  ApiGhFileRoute: ApiGhFileRoute,
+  ApiGhPushRoute: ApiGhPushRoute,
+  ApiGhReposRoute: ApiGhReposRoute,
+  ApiGhTreeRoute: ApiGhTreeRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
