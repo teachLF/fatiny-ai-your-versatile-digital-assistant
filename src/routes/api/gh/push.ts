@@ -49,7 +49,7 @@ export const Route = createFileRoute("/api/gh/push")({
             branch = info.default_branch || "main";
           }
 
-          const targetBranch: string = branch;
+          const targetBranch: string = branch ?? "main";
           const ref = await ghJson<any>(
             `repos/${owner}/${repo}/git/ref/heads/${encodeURIComponent(targetBranch)}`,
           );
